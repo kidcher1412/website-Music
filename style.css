@@ -608,9 +608,6 @@ body {
   --controls-y: 126%;
   --controls-resize-width: 92%;
 }
-.clicker{
-  transform: translate(-50%, -460%);
-}
 }
 @media screen and (max-width: 580px){
   .resize .slider__controls {
