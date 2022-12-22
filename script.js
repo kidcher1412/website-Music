@@ -70,22 +70,37 @@ function App({ songs }) {
 
   return (
     dom("div", { class: "music-player flex-column" },
+    dom("div", { class: "morecontrol" },
+    dom("i",{ class: "fa-solid fa-repeat" ,
+              onclick: function(){
+                isRepeat == false? isRepeat = true:isRepeat =false;
+                document.querySelector(".fa-repeat").classList.toggle("active")
+              }}),
+    dom("i",{ class: "fa-solid fa-download" }),
+    dom("i",{ class: "fa-solid fa-shuffle",          
+              onclick: function(){
+                isRanDom == false ? isRanDom = true:isRanDom =false;
+                console.log(isRanDom)
+      document.querySelector(".fa-shuffle").classList.toggle("active")
+    } }),
+    ),
     dom(Slider, { slides: songs, handleChangeMusic: handleChangeMusic }),
     dom(Playlist, { list: songs, handleChangeMusic: handleChangeMusic })));
-
+    
 
 }
-
 function Slider({ slides, handleChangeMusic }) {
   function handleResizeSlider({ target }) {
     if (isLocked) {
       return;
     } else if (target.classList.contains("music-player__info")) {
       this.classList.add("resize");
+      document.querySelector(".music-player").classList.add("doneSize");
       setProperty(this, "--controls-animate", "down running");
       return;
     } else if (target.classList.contains("music-player__playlist-button")) {
       this.classList.remove("resize");
+      document.querySelector(".music-player").classList.remove("doneSize");
       setProperty(this, "--controls-animate", "up running");
       return;
     }
@@ -139,7 +154,27 @@ function Slider({ slides, handleChangeMusic }) {
 
     dom("button", {
       class: "slider__switch-button flex-row button",
-      onClick: () => handleChangeMusic({ isPrev: false }) },
+      onClick: function(){
+        let indexNext = indexSong;
+        while(indexNext <= indexSong){
+          if(indexSong == songsLength){
+            console.log("qua gioi han")
+            indexNext = Math.floor(Math.random() * songsLength)
+            break;
+          }
+          isRepeat == true? indexNext = indexSong:indexNext = Math.floor(Math.random() * songsLength+1);
+        }
+        if(isRanDom){
+          console.log(indexNext)
+          handleChangeMusic({ isPrev: false, playListIndex: indexNext });
+          console.log("chuyen tiep ngau nhien")
+        }
+        else{
+          indexSong == songsLength ? document.querySelector(".heartFlower").style.display = "none": console.log("chua het danh sach")
+          console.log("chuyen tiep khong ngau nhien")
+          handleChangeMusic({}) 
+        }
+      } },
 
     dom("i", { class: "icon-next" })),
 
@@ -184,7 +219,9 @@ function Playlist({ list, handleChangeMusic }) {
       console.log("het bai")
       if(indexSong == songsLength){
         console.log("het danh sach!!!")
-        handleChangeMusic({ isPrev: false, playListIndex: 0 });
+        let indexNext;
+        isRepeat == true? indexNext = indexSong:indexNext = 0;
+        handleChangeMusic({ isPrev: false, playListIndex: indexNext });
         return;
       }
       if(isRepeat){
@@ -203,7 +240,7 @@ function Playlist({ list, handleChangeMusic }) {
       }
       else{
         indexSong == songsLength ? document.querySelector(".heartFlower").style.display = "none": console.log("chua het danh sach")
-        console.log("hiện tại "+ indexSong)
+
         console.log("chuyen tiep khong ngau nhien")
         handleChangeMusic({}) 
       }
