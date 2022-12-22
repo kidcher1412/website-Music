@@ -62,8 +62,8 @@ function App({ songs }) {
     document.querySelector(".visualizer-container").innerHTML = `<audio src="${selectedSong.currentSrc}" class="audioSrcVi"></audio>`
     setBodyBg(songs[indexSong].bg);
     setProperty(sliderImgs_elmnt, "--index", -indexSong);
-    updateInfo(singerName_elmnt, songs[indexSong].artist);
-    updateInfo(songName_elmnt, songs[indexSong].songName);
+    updateInfo(singerName_elmnt, songs[indexSong].songName);
+    updateInfo(songName_elmnt, songs[indexSong].artist);
   }
 
   setBodyBg(songs[0].bg);
@@ -128,12 +128,12 @@ function Slider({ slides, handleChangeMusic }) {
     dom("div", { class: "music-player__info text_trsf-cap" },
     dom("div", null,
     dom("div", { class: "music-player__singer-name" },
-    dom("div", null, slides[0].artist))),
+    dom("div", null, slides[0].songName))),
 
 
     dom("div", null,
     dom("div", { class: "music-player__subtitle" },
-    dom("div", null, slides[0].songName)))),
+    dom("div", null, slides[0].artist)))),
 
 
 
@@ -364,9 +364,9 @@ get(ref(db, `Songs`)).then((snapshot) => {
         broadcastGuarantor_elmnt = querySelector(
         ".music-player__broadcast-guarantor");
   
-  
-        controlSubtitleAnimation(musicPlayerInfo_elmnt, songName_elmnt);
+        
         controlSubtitleAnimation(musicPlayerInfo_elmnt, singerName_elmnt);
+        controlSubtitleAnimation(musicPlayerInfo_elmnt, songName_elmnt);
       });
     });
   } else {
