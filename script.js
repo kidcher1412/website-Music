@@ -52,14 +52,13 @@ function App({ songs }) {
     }
 
     selectedSong.pause();
-    selectedSong.volume = 1;
     selectedSong.currentTime = 0;
     progressBarIsUpdating = false;
     selectedSong = playlistSongs_elmnt[indexSong];
+    selectedSong.volume = 1
     document.querySelector(".music-player__broadcast-guarantor").classList.add("click")
     selectedSong.play();
-    selectedSong.paused ? document.querySelector(".heartFlower").style.opacity = "0" : document.querySelector(".heartFlower").style.opacity = "1"
-    document.querySelector(".visualizer-container").innerHTML = `<audio src="${selectedSong.currentSrc}" class="audioSrcVi"></audio>`
+    // selectedSong.paused ? document.querySelector(".heartFlower").style.opacity = "0" : document.querySelector(".heartFlower").style.opacity = "1"
     setBodyBg(songs[indexSong].bg);
     setProperty(sliderImgs_elmnt, "--index", -indexSong);
     updateInfo(singerName_elmnt, songs[indexSong].songName);
@@ -155,6 +154,7 @@ function Slider({ slides, handleChangeMusic }) {
     dom("button", {
       class: "slider__switch-button flex-row button",
       onClick: function(){
+        if(isRepeat == true) return handleChangeMusic({});
         let indexNext = indexSong;
         while(indexNext <= indexSong){
           if(indexSong == songsLength){
@@ -210,22 +210,25 @@ function Playlist({ list, handleChangeMusic }) {
     target.appendChild(document.createTextNode(`${min}:${sec}`));
   }
   function updateTheProgressBar() {
-    const duration = this.duration;
+    const duration =  this.duration;
     const currentTime = this.currentTime;
+    // console.log(currentTime+"  "+duration )
+    if (songIsPlayed && parseInt(currentTime) >= parseInt(duration-1)) console.log("het ba hat "+ currentTime)
     const progressBarWidth = currentTime / duration * 100;
     setProperty(progressBar_elmnt, "--width", `${progressBarWidth}%`);
     // unpdateVasualizer();
     if (songIsPlayed && currentTime == duration) {
-      console.log("het bai")
+      console.log("het bai");
+      selectedSong.pause();
       if(indexSong == songsLength){
         console.log("het danh sach!!!")
-        let indexNext;
-        isRepeat == true? indexNext = indexSong:indexNext = 0;
-        handleChangeMusic({ isPrev: false, playListIndex: indexNext });
+        if(isRepeat) handleChangeMusic({ isPrev: false, playListIndex: indexSong });
+        else handleChangeMusic({ isPrev: false, playListIndex: 0 })
         return;
       }
       if(isRepeat){
         console.log("lap lai bai hat")
+        selectedSong.pause();
         handleChangeMusic({ isPrev: false, playListIndex: indexSong });
         return;
       }
@@ -236,27 +239,19 @@ function Playlist({ list, handleChangeMusic }) {
       }
       if(isRanDom){
         handleChangeMusic({ isPrev: false, playListIndex: indexNext });
+        selectedSong.pause();
         console.log("chuyen tiep ngau nhien")
       }
       else{
         indexSong == songsLength ? document.querySelector(".heartFlower").style.display = "none": console.log("chua het danh sach")
-
+        selectedSong.pause();
         console.log("chuyen tiep khong ngau nhien")
         handleChangeMusic({}) 
       }
       
     }
 
-    if (
-    indexSong == songsLength &&
-    this == selectedSong &&
-    currentTime == duration)
-    {
-      songIsPlayed = true;
-      broadcastGuarantor_elmnt.classList.remove("click");
-      document.querySelector(".heartFlower").style.display = "none"
 
-    }
   }
 
   return (
