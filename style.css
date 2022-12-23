@@ -497,8 +497,10 @@ body {
 .heartFlower{
   position: absolute;
   z-index: -10;
-  opacity: 0;
+  opacity: 1;
   transition: 0.5s;
+  top: 0;
+  left: 0;
 }
 .visualizer-container {
   

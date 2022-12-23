@@ -58,7 +58,7 @@ function App({ songs }) {
     selectedSong.volume = 1
     document.querySelector(".music-player__broadcast-guarantor").classList.add("click")
     selectedSong.play();
-    // selectedSong.paused ? document.querySelector(".heartFlower").style.opacity = "0" : document.querySelector(".heartFlower").style.opacity = "1"
+    selectedSong.paused ? document.querySelector("canvas").style.display = "none" : document.querySelector("canvas").style.display = "block";
     setBodyBg(songs[indexSong].bg);
     setProperty(sliderImgs_elmnt, "--index", -indexSong);
     updateInfo(singerName_elmnt, songs[indexSong].songName);
@@ -73,13 +73,16 @@ function App({ songs }) {
     dom("i",{ class: "fa-solid fa-repeat" ,
               onclick: function(){
                 isRepeat == false? isRepeat = true:isRepeat =false;
+                isRanDom = false
+                document.querySelector(".fa-shuffle").classList.remove("active")
                 document.querySelector(".fa-repeat").classList.toggle("active")
               }}),
     dom("i",{ class: "fa-solid fa-download" }),
     dom("i",{ class: "fa-solid fa-shuffle",          
               onclick: function(){
                 isRanDom == false ? isRanDom = true:isRanDom =false;
-                console.log(isRanDom)
+                isRepeat = false
+                document.querySelector(".fa-repeat").classList.remove("active")
       document.querySelector(".fa-shuffle").classList.toggle("active")
     } }),
     ),
@@ -111,7 +114,7 @@ function Slider({ slides, handleChangeMusic }) {
     this.classList.toggle("click");
     songIsPlayed = !songIsPlayed;
     selectedSong.paused ? selectedSong.play() : selectedSong.pause();
-    selectedSong.paused ? document.querySelector(".heartFlower").style.opacity = "0" : document.querySelector(".heartFlower").style.opacity = "1"
+    selectedSong.paused ? document.querySelector("canvas").style.display = "none" : document.querySelector("canvas").style.display = "block";
   }
   return (
     dom("div", { class: "slider center", onClick: handleResizeSlider },
@@ -170,7 +173,7 @@ function Slider({ slides, handleChangeMusic }) {
           console.log("chuyen tiep ngau nhien")
         }
         else{
-          indexSong == songsLength ? document.querySelector(".heartFlower").style.display = "none": console.log("chua het danh sach")
+          selectedSong.paused ? document.querySelector("canvas").style.display = "none" : document.querySelector("canvas").style.display = "block";
           console.log("chuyen tiep khong ngau nhien")
           handleChangeMusic({}) 
         }
@@ -243,7 +246,7 @@ function Playlist({ list, handleChangeMusic }) {
         console.log("chuyen tiep ngau nhien")
       }
       else{
-        indexSong == songsLength ? document.querySelector(".heartFlower").style.display = "none": console.log("chua het danh sach")
+        selectedSong.paused ? document.querySelector("canvas").style.display = "none" : document.querySelector("canvas").style.display = "block";
         selectedSong.pause();
         console.log("chuyen tiep khong ngau nhien")
         handleChangeMusic({}) 
