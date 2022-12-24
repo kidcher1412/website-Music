@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script src="./vival.js"></script>
+    <title>Trang web thêm dữ liệu vào JSON</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Trang web thêm dữ liệu vào JSON</h1>
+    <form id="form">
+      <label for="name">Tên bài hát:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="link">Đường link bài hát:</label><br>
+      <input type="text" id="link" name="link"><br>
+      <label for="artist">Ca sĩ:</label><br>
+      <input type="text" id="artist" name="artist"><br><br>
+      <label for="image">IMG Của Bài Hát:</label><br>
+      <input type="text" id="image" name="image"><br><br>
+      <label for="color">Màu Nền Bạn Yêu Thích:</label><br>
+      <input type="color" id="color" min="#000000" max="#ffffff" step="#111111">
+      <input type="submit" value="Hoàn thành">
+    </form> 
+    <!-- <img src="./img/img.jpg" alt="" id="img" style="display: none;">
+    <img src="https://i.pinimg.com/564x/4b/cf/26/4bcf261cebf8078163bcbec9f2b0b133--faces-pins.jpg" alt="" id="img" style="display: none;" crossOrigin="anonymous"> -->
+    <div class="hint"></div>
+    <div>
+        <ul  class="playlist">
+
+        </ul>
+    </div>
+    <input type="file" id="audioFileInput" accept="audio/*">
+    <button id="uploadButton">Upload music</button>
+    <br>
+    <br>
+    <input type="file" id="audioFileInput1" accept="image/*">
+    <button id="uploadButton1">Upload Image</button>
+    <div class="image"></div>
+    <button id="dowloader">BẮT ĐẦU</button>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./script1.js"></script>
+    <!-- <script type="module" src="./color.js"></script> -->
+  </body>
+</html>

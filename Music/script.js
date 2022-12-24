@@ -33,6 +33,9 @@ let isRanDom = false;
 let isRepeat = false;
 
 
+let UserName = localStorage.getItem("Acc")
+if(UserName == null) window.open('./index.html','_parent');
+
 const root = querySelector("#root");
 
 function App({ songs }) {
@@ -242,12 +245,10 @@ function Playlist({ list, handleChangeMusic }) {
       }
       if(isRanDom){
         handleChangeMusic({ isPrev: false, playListIndex: indexNext });
-        selectedSong.pause();
         console.log("chuyen tiep ngau nhien")
       }
       else{
         selectedSong.paused ? document.querySelector("canvas").style.display = "none" : document.querySelector("canvas").style.display = "block";
-        selectedSong.pause();
         console.log("chuyen tiep khong ngau nhien")
         handleChangeMusic({}) 
       }
@@ -335,7 +336,7 @@ let testdata;
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getDatabase(app);
-get(ref(db, `Songs`)).then((snapshot) => {
+get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
   if (snapshot.exists()) {
     console.log("tim thay 1 du lieu")
     testdata = [];
@@ -362,6 +363,56 @@ get(ref(db, `Songs`)).then((snapshot) => {
                 song.files[media] = file;
                 resolve(song);
               }
+              if (req.status === 410){
+                console.log("Phiên Nhạc Hết!!!")
+                
+              }
+            }
+          };
+        });
+  
+        promise.then(() => {
+          loadingProgress++;
+          const progress = Math.round(
+          loadingProgress / (songs.length * 2) * 100);
+  
+          loadingProgress_elmnt.innerHTML = progress;
+        });
+  
+        return promise;
+      }));
+  
+    }
+    function downloadTheFilesMu(media, input) {
+      return Promise.all(
+      input.map(song => {
+        console.log(song)
+        const promise = new Promise(resolve => {
+          const url = song.files[media];
+          const req = new XMLHttpRequest();
+          req.open("GET", url, true);
+          req.responseType = "blob";
+          req.send();
+          req.onreadystatechange = () => {
+            if (req.readyState === 4) {
+              if (req.status === 200) {
+                const blob = req.response;
+                const file = URL.createObjectURL(blob);
+                song.files[media] = file;
+                resolve(song);
+              }
+              if (req.status === 410){
+                console.log("Phiên Nhạc Hết, Thực hiện Phục Hồi!!!")
+                fetch(`https://api.spotifydown.com/download/${song.files.idbackup}`).then(e=>{
+                  req.open("GET", url, true);
+                  req.responseType = "blob";
+                  req.send();
+                  const blob = req.response;
+                  const file = URL.createObjectURL(blob);
+                  song.files[media] = file;
+                  resolve(song);
+                })
+              }
             }
           };
         });
@@ -382,7 +433,7 @@ get(ref(db, `Songs`)).then((snapshot) => {
     root.appendChild(dom(Loading, null));
     loadingProgress_elmnt = querySelector(".loading__progress");
   
-    downloadTheFiles("cover", songs).then(respone => {
+    downloadTheFilesMu("cover", songs).then(respone => {
       downloadTheFiles("song", respone).then(data => {
         root.removeChild(querySelector(".loading"));
         root.appendChild(dom(App, { songs: data }));
@@ -408,9 +459,12 @@ get(ref(db, `Songs`)).then((snapshot) => {
     console.log("No data available");
     document.querySelector("#root").innerHTML = `
     <h1>Không Có Bài Hát Khả Dụng, Vui Lòng Thêm Bài Hát Vào Dang Sách Bằng Link Bên Dưới</h1>
-    <a href="">Thêm Bài Hát Vào Thư Viện</a>
+    <a id="AddOn">Thêm Bài Hát Vào Thư Viện</a>
      `
      + document.querySelector("#root").innerHTML
+     document.querySelector("#AddOn").addEventListener("click",function(){
+      return window.open('./UploadMusic/index.html','_parent');
+     })
   }
 }).catch((error) => {
   console.error(error);
@@ -638,7 +692,7 @@ window.addEventListener("pointerup", () => {
 window.addEventListener("pointermove", e => {
   if (progressBarIsUpdating) {
     handleScrub(e, this);
-    selectedSong.muted = true;
+    // selectedSong.muted = true;
   }
 });
 function removeAnimation(){
@@ -718,6 +772,7 @@ clicker.addEventListener("click", function(){
     document.querySelector('.sticker').style.display = "none";
   }, 3000);
 })
-function addDatatoJson(){
-  
-}
+document.querySelector("#addMusic").addEventListener("click",function(){
+
+  window.open('./UploadMusic/index.html','_parent');
+})

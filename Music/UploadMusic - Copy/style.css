@@ -1,0 +1,12 @@
+#imageUploader{
+    margin-top: 40px;
+    height: 300px;
+    width: 300px;
+    background-size: cover;
+    background-position: center;
+    border: 5px solid black;
+}
+#callBack{
+    cursor: pointer;
+    font-size: xx-large;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music For My Life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<link rel="stylesheet" href="./cssforsnow.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- Designed by:  Mauricio Bucardo
+Original image: https://dribbble.com/shots/6957353-Music-Player-Widget -->
+<div class="sticker">
+  <div class="nam"></div>
+  <div class="nu"></div>
+</div>
+  <div class="visualizer-container" style="display: none;"> 
+  </div>
+<div id="root">
+  <div class="clicker">Click!!!</div>
+  <i id="addMusic" class="fa-solid fa-podcast"></i>
+</div>
+<!-- partial -->
+<div class="heartFlower">
+  <canvas id="canvas"></canvas>
+</div>
+<script src="./jsforsnow.js"></script>
+<!-- ################################################################################ -->
+<!-- <css-doodle class="heartFlower" grid="5">
+  :doodle {
+    @grid: 10 / 100%; 
+  }
+  background: @pick(
+    #ff0198, #8156a8, #ff6d00, #ff75e4
+  );
+
+  transform: translate(
+    @rand(-50vw, 50vw),
+    @rand(-50vh, 50vh)
+  );
+
+  @size: 3.5vmin;
+  @shape: heart;
+  @place-cell: 50% 50%;
+
+  animation-name: explosion;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+  animation-duration: calc(@rand(2s, 5s, .1));
+  animation-delay: calc(@rand(-5s, -1s, .1));
+  animation-timing-function: 
+    cubic-bezier(.84, .02, 1, 1);
+
+  @keyframes explosion {
+    0% { opacity: 0; }
+    70% { opacity: 1; }
+    100% { transform: translate(0, 0); }
+  }
+</css-doodle> -->
+
+
+  <script type="module"  src="./script.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.5.1/css-doodle.min.js'></script>
+
+
+</body>
+</html>
