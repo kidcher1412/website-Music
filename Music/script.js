@@ -367,10 +367,11 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
                 console.log("Phiên Nhạc Hết!!!")
                 fetch(`https://api.spotifydown.com/download/${song.files.idbackup}`).then(e=>{
                   e.json().then(e1 =>{
-                    console.log(e1);
-                    // req.open("GET", e1.link, true);
-                    // req.responseType = "blob";
-                    // req.send();
+                    console.log(e1.link)
+                    const audio = new Audio(e1.link);
+                    req.open("GET", audio, true);
+                    req.responseType = "blob";
+                    req.send();
                     // const blob = req.response;
                     // const file = URL.createObjectURL(blob);
                     // song.files[media] = file;
