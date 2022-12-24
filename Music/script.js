@@ -366,7 +366,7 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
               if (req.status === 410){
                 console.log("Phiên Nhạc Hết!!!")
                 fetch(`https://api.spotifydown.com/download/${song.files.idbackup}`).then(e=>{
-                  console.log(e)
+                  console.log(e.url)
                   req.open("GET", e.url, true);
                   req.responseType = "blob";
                   req.send();
