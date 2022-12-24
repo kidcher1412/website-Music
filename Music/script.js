@@ -365,7 +365,15 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
               }
               if (req.status === 410){
                 console.log("Phiên Nhạc Hết!!!")
-                
+                fetch(`https://api.spotifydown.com/download/${song.files.idbackup}`).then(e=>{
+                  req.open("GET", url, true);
+                  req.responseType = "blob";
+                  req.send();
+                  const blob = req.response;
+                  const file = URL.createObjectURL(blob);
+                  song.files[media] = file;
+                  resolve(song);
+              })
               }
             }
           };
