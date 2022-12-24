@@ -369,13 +369,13 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
                   e.json().then(e1 =>{
                     console.log(e1.link)
                     const audio = new Audio(e1.link);
-                    req.open("GET", audio, true);
-                    req.responseType = "blob";
-                    req.send();
+                    // req.open("GET", audio, true);
+                    // req.responseType = "blob";
+                    // req.send();
                     // const blob = req.response;
                     // const file = URL.createObjectURL(blob);
-                    // song.files[media] = file;
-                    // resolve(song);
+                    song.files[media] = audio;
+                    resolve(song);
                   })
               })
               }
