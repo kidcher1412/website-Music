@@ -31,13 +31,11 @@ const MailLog = document.querySelector("#logemail")
 const PassLog = document.querySelector("#logpass")
 const BntLog = document.querySelector("#login")
 const BntForget = document.querySelector("#getacc")
-const NameSign = document.querySelector("#signname")
-const MailSign = document.querySelector("#signemail")
-const PassSign = document.querySelector("#signpass")
+
 BntLog.addEventListener("click",function(){
     let checkercontiniue = 0;
     userdata.forEach(element =>{
-        if(element.Mail == MailLog.value&&element.Pass == PassLog.value){
+        if((element.Mail == MailLog.value||element.Name == MailLog.value)&&element.Pass == PassLog.value){
             console.log('thuc hien sao ke');
             var json_string = element.Name;
             localStorage.setItem("Acc",json_string)
@@ -62,6 +60,8 @@ BntForget.addEventListener("click",function(){
         }
         else console.log("null")
     });
+    document.querySelector("#labletoLogin").textContent = "By Email";
+    document.querySelector("#labletosignup").textContent = "By Name";
     const backup = document.querySelector(".card-3d-wrapper")
     // document.querySelector("lable").style.display = "none";
     document.querySelector(".card-3d-wrapper").innerHTML = `
@@ -86,20 +86,31 @@ BntForget.addEventListener("click",function(){
     `
     document.querySelector("#forget").addEventListener("click",function(){
         console.log("da nhap")
+        let checkercontiniue = 0;
         userdata.forEach(element =>{
-            if(element.Mail == document.querySelector("#forgetemail").value||element.Name == document.querySelector("#forgetname").value) alert("Mật Khẩu Của Bạn Là "+element.Pass) ;
-            else return alert("sai thong tin dang nhap de lay laii mat khau");
-            window.location.reload();
+            if(element.Mail == document.querySelector("#forgetemail").value){
+                alert("Mật Khẩu Của Bạn Là "+element.Pass) ;
+                checkercontiniue =1;
+            }
         })
+        if(checkercontiniue == 0 ) alert("không tìm thấy tài khoản mang thông tin Email "+document.querySelector("#forgetemail").value)
+        return window.location.reload();
     })
     document.querySelector("#forget1").addEventListener("click",function(){
         console.log("da nhap")
+        let checkercontiniue = 0;
         userdata.forEach(element =>{
-            if(element.Mail == document.querySelector("#forgetemail").value||element.Name == document.querySelector("#forgetname").value) 
+            if(element.Name == document.querySelector("#forgetname").value) 
         {
             alert("Mật Khẩu Của Bạn Là "+element.Pass) ;
+            checkercontiniue =1;
             return window.location.reload();
         }
         })
+        if(checkercontiniue == 0 ){
+            alert("không tìm thấy tài khoản mang thông tin Tên "+document.querySelector("#forgetname").value)
+            return window.location.reload();
+        }
+        return window.location.reload();
     })
 })
