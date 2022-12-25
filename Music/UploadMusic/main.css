@@ -7,7 +7,7 @@
 }
 .container{
     flex: 1;
-    padding: 70px;
+    padding: 40px;
 }
 span.caret {
     position: absolute;
@@ -55,4 +55,12 @@ img.track {
 .container {
     margin-right: 0; 
     margin-left: 0;
+}
+.container1{
+    position: relative;
+}
+.image{
+    position: absolute;
+    top: 0;
+    left: 0;
 }

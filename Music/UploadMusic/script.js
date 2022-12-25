@@ -186,3 +186,6 @@ function render(){
     `
     })
 }
+document.querySelector("#BackPage").addEventListener("click",function(){
+  return window.history.back();
+})
