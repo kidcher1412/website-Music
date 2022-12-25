@@ -375,7 +375,7 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
                     // req1.send();
                     // const blob1 = req1.response;
                     // const file = URL.createObjectURL(blob1);
-                    song.files[media] = audio;
+                    song.files[media] = e1.link;
                     resolve(song);
                   })
               })
