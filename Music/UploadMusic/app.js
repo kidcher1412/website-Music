@@ -249,6 +249,7 @@ const APPController = (function(UICtrl, APICtrl) {
         console.log(trackEndpoint)
         //get the track object
         const track = await APICtrl.getTrack(token, trackEndpoint);
+        console.log(track)
         console.log(track.id)
         // load the track details
         document.querySelector("#image").value = track.album.images[0].url;
@@ -258,16 +259,22 @@ const APPController = (function(UICtrl, APICtrl) {
         var event = new Event('change');
         document.querySelector("#image").dispatchEvent(event);
         var getLink = track.id;
-
-        fetch(`https://api.spotifydown.com/download/${getLink}`).then(e=>{
-    e.json().then(e1 =>{
-        console.log(e1.link)
-        document.querySelector("#link").value = e1.link;
+        
+        
+        document.querySelector("#link").value = track.preview_url;
         var event = new Event('change');
         document.querySelector("#link").dispatchEvent(event);
-    })
 
-    })
+
+    //     fetch(`https://api.spotifydown.com/download/${getLink}`).then(e=>{
+    // e.json().then(e1 =>{
+    //     console.log(e1.link)
+    //     document.querySelector("#link").value = e1.link;
+    //     var event = new Event('change');
+    //     document.querySelector("#link").dispatchEvent(event);
+    // })
+
+    // })
         // UICtrl.createTrackDetail(track.album.images[2].url, track.name, track.artists[0].name);
     });    
     document.querySelector("#SongName").addEventListener("change",function(){
