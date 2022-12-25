@@ -59,8 +59,8 @@ img.track {
 .container1{
     position: relative;
 }
-.image{
+.image {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 85px;
+    left: 213px;
 }
