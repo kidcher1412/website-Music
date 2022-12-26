@@ -146,6 +146,10 @@ form.addEventListener('submit', (event) => {
     if(link == null || link == "") return;
     const artist = artistInput.value;
     if(artist == null || artist == "") return;
+    if(document.querySelector("#IDbackup").value == null || document.querySelector("#IDbackup").value == "") {
+      alert("Vui Lòng Chờ Bài Hát Được GetLink!")
+      return;
+    }
     const Color = color.value;
     if(Color == null || Color == "#000000"){
       alert("tải ảnh thất bại, Thử Lại Sau");

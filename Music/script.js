@@ -351,8 +351,11 @@ get(ref(db, `Songs/${UserName}`)).then((snapshot) => {
       input.map(song => {
         const promise = new Promise(resolve => {
           let url = song.files[media];
-          console.log(url)
-          if(url == "") url = song.files.idbackup;
+          // if(url == ""){
+          //   song.files[media] = song.files.idbackup;
+          //   resolve(song);
+          //   return;
+          // }
           const req = new XMLHttpRequest();
           req.open("GET", url, true);
           req.responseType = "blob";
