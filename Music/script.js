@@ -223,7 +223,7 @@ function Playlist({ list, handleChangeMusic }) {
     const progressBarWidth = currentTime / duration * 100;
     setProperty(progressBar_elmnt, "--width", `${progressBarWidth}%`);
     // unpdateVasualizer();
-    if (songIsPlayed && currentTime == duration) {
+    if (currentTime >= duration) {
       console.log("het bai");
       selectedSong.pause();
       if(indexSong == songsLength){

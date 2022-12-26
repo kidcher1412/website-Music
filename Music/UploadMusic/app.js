@@ -255,15 +255,37 @@ const APPController = (function(UICtrl, APICtrl) {
         document.querySelector("#image").value = track.album.images[0].url;
         document.querySelector("#name").value = track.name;
         document.querySelector("#artist").value = track.artists[0].name;
-        document.querySelector("#IDbackup").value = track.id;
+        document.querySelector("#IDbackup").value = "";
         var event = new Event('change');
         document.querySelector("#image").dispatchEvent(event);
         var getLink = track.id;
         
         
-        document.querySelector("#link").value = track.preview_url;
-        var event = new Event('change');
-        document.querySelector("#link").dispatchEvent(event);
+        // document.querySelector("#link").value = track.preview_url;
+        // var event = new Event('change');
+        // document.querySelector("#link").dispatchEvent(event);
+
+
+        const options = {
+            method: 'GET',
+            url: 'https://spotify-scraper.p.rapidapi.com/v1/track/download/soundcloud',
+            params: {track: track.name},
+            headers: {
+              'X-RapidAPI-Key': '28c79e35f6msh758f5099850cbaep1a6963jsnfcfc832f5bfe',
+              'X-RapidAPI-Host': 'spotify-scraper.p.rapidapi.com'
+            }
+          };
+          
+          axios.request(options).then(function (response) {
+                console.log(response.data.soundcloudTrack.audio[0].url);
+                document.querySelector("#link").value = response.data.soundcloudTrack.audio[0].url;
+                // var event = new Event('change');
+                // document.querySelector("#link").dispatchEvent(event);
+                var event = new Event('change');
+                document.querySelector("#link").dispatchEvent(event);
+          }).catch(function (error) {
+              console.error(error);
+          });
 
 
     //     fetch(`https://api.spotifydown.com/download/${getLink}`).then(e=>{

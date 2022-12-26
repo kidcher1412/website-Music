@@ -57,7 +57,7 @@
 
     //lang nghe sự kiện thay đổi Link Nhac, Ảnh
     let audio = null;
-document.querySelector("#link").addEventListener("change",function(){
+document.querySelector("#IDbackup").addEventListener("change",function(){
   if(audio!=null) audio.pause();
   audio = new Audio(document.querySelector("#link").value);
   if(document.querySelector("#link").value=="") document.querySelector("#playHandle").style.display = "none"
@@ -158,8 +158,8 @@ form.addEventListener('submit', (event) => {
       artist: artist,
       bg: Color,
       files:{
-        song:link,
-        idbackup:idbackuper,
+        song:idbackuper,
+        idbackup:link,
         cover:IMAGE
       }
   };
@@ -188,4 +188,9 @@ function render(){
 }
 document.querySelector("#BackPage").addEventListener("click",function(){
   return window.history.back();
+})
+document.querySelector("#getlinkSpotify").addEventListener("click",function(){
+  var valueID= document.querySelector("#IDbackup").value;
+  if(valueID == "") return alert("khong tim thay gia tri ID")
+  console.log(getValueID(valueID))
 })
