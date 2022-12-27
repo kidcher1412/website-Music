@@ -302,6 +302,7 @@ Custom Srollbar
 .mCSB_inside > .mCSB_container {
   margin-right: 0px;
   padding: 0 10px;
+  height: max-content;
 }
 
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {

@@ -46,6 +46,7 @@ const firebaseConfig = {
                 listChat.push(JSON.parse(value))
           });
           loadFist()
+          document.querySelector("#mCSB_1_container").style.top  = "-99999999999999px"
         }
         else console.log("null")
     });
