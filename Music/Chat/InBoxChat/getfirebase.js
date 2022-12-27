@@ -17,6 +17,18 @@ const firebaseConfig = {
   let listChat = [];
   let getMainUser;
   let getsecondUser;
+  onValue(ref(db, `Chat`), (snapshot) => {
+    listChat = [];
+    $('<div class="message loading new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+    snapshot.forEach(element => {
+      let value = JSON.stringify(element)
+      if((JSON.parse(value).UserGet == getMainUser && JSON.parse(value).UserSend == getsecondUser)||(JSON.parse(value).UserGet == getsecondUser && JSON.parse(value).UserSend == getMainUser))
+          listChat.push(JSON.parse(value))
+    });
+    console.log(listChat[listChat.length-1])
+    loadInner(listChat[listChat.length-1])
+    $('.message.loading').remove();
+  });
   window.onload= function(){
     console.log("App Start")
     getMainUser = localStorage.getItem("Acc");
@@ -50,6 +62,12 @@ const firebaseConfig = {
             $('<div class="timestamp">' + snapshot.Date + '</div>').appendTo($('.message:last'));
         }
     })
+  }
+  function loadInner(x){
+    if(x.UserGet == getsecondUser) return
+    $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + x.Value + '</div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="timestamp">' + x.Date + '</div>').appendTo($('.message:last'));
+    updateScrollbar();
   }
   function updateScrollbar() {
     $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
